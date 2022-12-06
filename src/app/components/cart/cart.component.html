@@ -1,0 +1,29 @@
+<div *ngFor="let item_in_cart of cart">
+    <div>
+        <img class="product-image" src="{{item_in_cart.product.url}}">
+
+    </div>
+    <div>
+        {{item_in_cart.product.name}}
+    </div>
+    <div>
+        ${{item_in_cart.product.price}}
+    </div>
+    <div>
+        Quantity: {{item_in_cart.quantity}}
+    </div>
+
+</div>
+
+<h1>Total price {{total_price}}</h1>
+
+<div><form #form="ngForm" (ngSubmit)="onSubmit()">
+    <label for="fullName">Full name:</label><br>
+    <input type="text" name="fullName" required minlength="5" [(ngModel)]="fullName"><br>
+    <label for="address">Address:</label><br>
+    <input type="address" name="address" required minlength="5"[(ngModel)]="address"><br>
+    <label for="cardNumber">Cedit card number:</label><br>
+    <input type="text" name="cardNumber" required minlength="16" maxlength="16"[(ngModel)]="cardNumber"><br>
+    <p> We'll never share your payment details with anyone else</p><br>
+    <button type="submit" [disabled]="form.invalid">Submit</button>
+  </form></div>

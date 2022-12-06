@@ -1,0 +1,7 @@
+<app-header></app-header>
+<div class="product-container">
+<h1 class= "product-index"> List of products </h1><br>
+<div class="product-index">
+    <app-product-item class="product-index" *ngFor="let product of productList" [product]="product"></app-product-item>
+</div>
+</div>

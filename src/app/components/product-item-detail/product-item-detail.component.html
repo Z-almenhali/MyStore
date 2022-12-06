@@ -1,0 +1,22 @@
+<app-header></app-header>
+
+
+<div class="detail-container">
+    <img class="img" src="{{product.url}}">
+    <div class="detail-item">
+        <h1>{{product.name}}</h1>
+        <p> {{product.description}}</p>
+        <p> ${{product.price}}</p>
+
+        <select [(ngModel)]="quantity" class="select-input" name="quantity">
+            <option *ngFor="let i of available_quantites" value="{{ i }}">
+                {{ i }}
+            </option>
+        </select>
+        <br>
+        <button (click)="AddToCart()"> Add to cart </button>
+        <br>
+        <a routerLink="/" class="back-link">Back to page</a>
+      
+    </div>
+</div>
