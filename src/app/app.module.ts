@@ -10,6 +10,7 @@ import { CartComponent } from './components/cart/cart.component';
 import { ProductsComponent } from './components/product-item/product-item.component';
 import { ConfirmationComponent } from './components/confirmation/confirmation.component';
 import { HeaderComponent } from './components/header/header.component';
+import { HttpClientModule } from '@angular/common/http';
  
 
 
@@ -27,7 +28,8 @@ import { HeaderComponent } from './components/header/header.component';
   imports: [
     FormsModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -13,17 +13,36 @@
         Quantity: {{item_in_cart.quantity}}
     </div>
 
+    <button (click)="removeItem(item_in_cart.product)">Remove from cart</button>
+
 </div>
 
 <h1>Total price {{total_price}}</h1>
 
-<div><form #form="ngForm" (ngSubmit)="onSubmit()">
-    <label for="fullName">Full name:</label><br>
-    <input type="text" name="fullName" required minlength="5" [(ngModel)]="fullName"><br>
-    <label for="address">Address:</label><br>
-    <input type="address" name="address" required minlength="5"[(ngModel)]="address"><br>
-    <label for="cardNumber">Cedit card number:</label><br>
-    <input type="text" name="cardNumber" required minlength="16" maxlength="16"[(ngModel)]="cardNumber"><br>
-    <p> We'll never share your payment details with anyone else</p><br>
-    <button type="submit" [disabled]="form.invalid">Submit</button>
-  </form></div>
+<div>
+    <form #form="ngForm" (ngSubmit)="onSubmit()">
+        <label for="fullName">Full name:</label><br>
+        <input type="text" name="fullName" required minlength="5" [(ngModel)]="fullName"
+            (ngModelChange)="nameChanged($event)"><br>
+        <p *ngIf="fullName != '' && fullName.length < 5" style="color: red;">
+            (needs to be at least 5 characters)
+        </p>
+        <label for="address">Address:</label><br>
+        <input type="address" name="address" required minlength="5" [(ngModel)]="address"
+            (ngModelChange)="adressChanged($event)"><br>
+        <p *ngIf="address != '' && address.length < 5" style="color: red;">
+            (needs to be at least 5 characters)
+        </p>
+        <label for="cardNumber">Cedit card number:</label><br>
+        <input type="text" name="cardNumber" required minlength="16" maxlength="16" [(ngModel)]="cardNumber"
+            (ngModelChange)="cardNumberChanged($event)"><br>
+        <p *ngIf="cardNumber != '' && cardNumberError == '-1'" style="color: red;">
+            (needs to be number)
+        </p>
+        <p *ngIf="cardNumber != ''  && cardNumberError == '-2'" style="color: red;">
+            (needs to be 16 digits)
+        </p>
+        <p> We'll never share your payment details with anyone else</p><br>
+        <button type="submit" [disabled]="form.invalid">Submit</button>
+    </form>
+</div>

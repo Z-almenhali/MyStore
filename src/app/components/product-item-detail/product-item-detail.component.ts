@@ -29,14 +29,19 @@ export class ProductItemDetailComponent {
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-
-      this.product = this.productService.getProduct(params["id"]) || this.product;
-
+      this.productService.getProducts().subscribe((data) => {
+        data.forEach(product => {
+          if (product["id"] == params["id"]) {
+            this.product = product;
+          }
+        });
+      })
     });
   }
 
   AddToCart() {
     this.cartService.AddToCart(this.product, Number(this.quantity));
+    alert(`${this.product.name} has been added to your cart.`);
   }
 
 }

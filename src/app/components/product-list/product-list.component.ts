@@ -9,13 +9,15 @@ import { product } from 'src/app/models/product';
 })
 export class ProductListComponent implements OnInit {
 productList: product[]= [];
-  //^  TODO fix type
 
 
 constructor( private productService: ProductServiceService){}
 
 ngOnInit(): void{
-  this.productList= this.productService.getProducts();
+  this.productService.getProducts().subscribe((data) => {
+    this.productList = data;
+  });
+  
 }
 
 }

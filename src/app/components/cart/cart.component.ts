@@ -12,11 +12,12 @@ import { Router } from '@angular/router';
 
 export class CartComponent {
 
-  fullName!: string;
-  address!: string;
-  cardNumber!: string;
+  fullName: string = '';
+  address: string = '';
+  cardNumber: string = '';
+  cardNumberError: string = '';
   orderInfo!: orderInfo;
-  constructor(private cartService: CartService,private router: Router
+  constructor(private cartService: CartService, private router: Router
   ) { }
 
 
@@ -33,9 +34,17 @@ export class CartComponent {
     this.cart.forEach((product_in_cart: { quantity: number; product: product; }) => {
       this.total_price += product_in_cart.quantity * product_in_cart.product.price;
     });
-
   }
 
+  removeItem(product: product) {
+    this.cartService.RemoveFromCart(product.id);
+
+    this.total_price = 0;
+    this.cart.forEach((product_in_cart: { quantity: number; product: product; }) => {
+      this.total_price += product_in_cart.quantity * product_in_cart.product.price;
+    });
+    alert(`${product.name} has been removed from your cart.`);
+  }
 
   onSubmit(): void {
     const orderInfo: orderInfo = {
@@ -43,17 +52,31 @@ export class CartComponent {
       total_price: this.total_price,
       address: this.address,
       cardNumber: this.cardNumber
-}
+    }
 
-this.cartService.setOrderInformation(orderInfo);
-this.cartService.clearCart();
-this.cart=[]
-this.router.navigate(['/confirmation']);
-// this.fullName = '';
-// this.total_price =0;
-// this.address = '';
-// this.cardNumber ='';
+    this.cartService.setOrderInformation(orderInfo);
+    this.cartService.clearCart();
+    this.cart = []
+    this.router.navigate(['/confirmation']);
+  }
 
+  nameChanged(str: string) {
+    this.fullName = str;
+  }
+
+  adressChanged(str: string) {
+    this.address = str;
+  }
+
+  cardNumberChanged(str: string) {
+    if (isNaN(Number(str))) {
+      this.cardNumberError = '-1';
+    } else if (str.length != 16) {
+      this.cardNumberError = '-2';
+    } else {
+      this.cardNumberError = '';
+      this.cardNumber = str;
+    }
   }
 
 }
