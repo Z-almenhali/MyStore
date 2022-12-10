@@ -9,4 +9,4 @@
  
  ## Scripts needed
  - `npm install` to install all the required dependencies
- - `npm run build` to build the project
+ - `ng serve` to start server
